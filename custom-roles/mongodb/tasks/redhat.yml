@@ -1,0 +1,14 @@
+---
+# tasks file for mongodb
+
+- name: Add repository
+  template: src=mongodb-org-3.2.centos.repo dest=/etc/yum.repos.d/mongodb-org-3.2.repo
+  become: true
+
+- name: Install MongoDB
+  yum: name=mongodb-org state=present
+  become: true
+
+- name: Start Mongodb service
+  service: name=mongod state=started enabled=true
+  become: true 

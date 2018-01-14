@@ -1,0 +1,13 @@
+[allnodes]
+icloudnow001
+icloudnow002
+icloudnow003
+
+[etcdnodes]
+icloudnow001
+icloudnow002
+icloudnow003
+
+[builders]
+icloudnow001
+

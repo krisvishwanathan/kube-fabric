@@ -1,0 +1,10 @@
+prerequisites: true
+provision: true
+
+sensu_server: false
+elk_server: false
+
+sensu_client: false
+elk_client: false
+
+tools: true

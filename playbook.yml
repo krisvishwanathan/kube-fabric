@@ -1,0 +1,29 @@
+---
+- name: update hosts file
+  hosts: all
+  become: true
+  gather_facts: false
+  remote_user: ubuntu
+  tasks:
+   - name: Install python 
+     raw: test -e /usr/bin/python || (sudo apt -y update && sudo apt install -y python-minimal)   
+   - name: update hosts
+     lineinfile:
+       dest: /etc/hosts
+       regexp: '.*{{ item }}$'
+       line: "{{ hostvars[item].public_ip }} {{item}}"
+       state: present
+     with_items: "{{ groups.all }}"
+
+- name: Run the plays
+  vars:
+    env: "aws"
+    env_type: "k8s"
+  include: "env_k8s/{{ mode }}.yml"
+
+- name: Run the plays
+  vars:
+    env: "bc1st"
+    deploy_type: "k8s"
+  include: "deploy_k8s/plays.yml"
+

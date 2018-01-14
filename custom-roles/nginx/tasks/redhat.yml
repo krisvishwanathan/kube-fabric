@@ -1,0 +1,16 @@
+---
+- name: Install epel
+  yum: name=epel-release update_cache=yes
+  become: true
+
+- name: Install Softwares
+  yum: name=nginx update_cache=yes
+  become: true
+      
+- name: Configure services
+  template: src=nginx.centos.conf dest=/etc/nginx/nginx.conf
+  become: true
+
+- name: Start Service
+  service: name=nginx state=restarted
+  become: true

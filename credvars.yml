@@ -1,0 +1,5 @@
+# Cred Vars
+---
+- name: Cred variables
+  hosts: cloud
+  connection: local

@@ -1,0 +1,25 @@
+# Cred Vars
+hosts: {
+  group: [{
+    hostgroupname: "Sensu Server",
+    # Provide hostname prefix and the stackside will add number suffix to the hostname
+    hostnameprefix: "sserver",
+    # This should be your AWS Access Key ID
+    keyfile: "./id_rsa",
+    # This should be your AWS Secret Access Key
+    # can be passed as part of cmd line when running the playbook
+    stacksize: 1
+    # password: "{{ password | default(lookup('env', 'AWS_SECRET_KEY')) }}"
+  },
+  {
+    hostgroupname: "Sensu Client",
+    # Provide hostname prefix and the stackside will add number suffix to the hostname
+    hostnameprefix: "SensuClient",
+    # This should be your AWS Access Key ID
+    keyfile: "./id_rsa",
+    # This should be your AWS Secret Access Key
+    # can be passed as part of cmd line when running the playbook
+    stacksize: 3
+    # password: "{{ password | default(lookup('env', 'AWS_SECRET_KEY')) }}"
+  } ]
+}

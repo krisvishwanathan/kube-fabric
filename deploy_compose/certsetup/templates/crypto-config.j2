@@ -1,0 +1,29 @@
+---
+{% if orderers | length > 0 %}
+OrdererOrgs:
+{% for org in ordererorgs %}
+  - Name: {{ org }}
+    Domain: {{ org }}
+    Specs:
+{%   for item in orderers %}
+{%     if item.org == org %}
+      - Hostname: {{ item.name }}
+{%     endif %}
+{%   endfor %}
+{% endfor %}
+{% endif %}
+
+{% if peers | length > 0 %}
+
+PeerOrgs:
+{% for org in peerorgs %}
+  - Name: {{ org }}
+    Domain: {{ org }}
+    Specs:
+{%   for item in peers %}
+{%     if item.org == org %}
+      - Hostname: {{ item.name }}
+{%     endif %}
+{%   endfor %}
+{% endfor %}
+{% endif %}

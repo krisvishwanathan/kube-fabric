@@ -1,0 +1,12 @@
+---
+- name: Install Softwares
+  apt: name=nginx update_cache=yes
+  become: true
+
+- name: Configure services
+  template: src=nginx.ubuntu.conf dest=/etc/nginx/sites-available/default
+  become: true
+
+- name: Start Service
+  service: name=nginx state=restarted
+  become: true

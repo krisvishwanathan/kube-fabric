@@ -1,0 +1,36 @@
+---
+- name: add key
+  apt_key: keyserver=keyserver.ubuntu.com id=EA312927 state=present
+  tags:
+  - addmongokey
+    
+- name: Add repo
+  template: src=mongodb-org-3.2.ubuntu.repo dest=/etc/apt/sources.list.d/mongodb-org-3.2.list
+  become: true
+  tags:
+  - addmongorepo
+
+- name: Update APT package cache
+  action: apt update_cache=yes cache_valid_time=3600
+  become: true
+
+
+- name: Install MongoDB
+  apt: 
+   name: mongodb-org 
+   update_cache: yes
+   state: present 
+  become: true
+
+- name: Create the authenticated mongodb configuration file
+  template: src=mongod.ubuntu.conf dest=/etc/mongod.conf
+  become: true
+
+- name: Set up the mongodb service using systemd
+  command: systemctl enable mongod.service
+
+
+- name: Start Mongodb service
+  service: name=mongod state=started enabled=true
+  become: true 
+
